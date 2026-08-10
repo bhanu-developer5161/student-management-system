@@ -1,0 +1,17 @@
+.navbar {
+  min-height: 65px;
+}
+
+.card {
+  border: none;
+  border-radius: 10px;
+}
+
+.card h5 {
+  color: #555;
+}
+
+.card h2 {
+  margin-top: 10px;
+  font-weight: bold;
+}
