@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🎓 Student Management System
 
 A responsive **Student Management System frontend** built with React.js and Bootstrap. This project is designed to provide a clean and user-friendly interface for managing student information, courses, attendance, and marks.
@@ -193,3 +194,7 @@ MCA — Computer Science
 ---
 
 ⭐ If you find this project useful, consider giving the repository a star!
+=======
+# student-management-system
+A responsive Student Management System frontend built with React.js, JavaScript, Bootstrap, HTML5, and CSS3 for managing students, courses, attendance, and marks.
+>>>>>>> 2e450e76a7b9145adb3070ceafbe935cf8523045
