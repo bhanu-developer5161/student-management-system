@@ -1,17 +1,96 @@
-.navbar {
-  min-height: 65px;
+.app {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 240px;
+  min-height: 100vh;
+  background-color: #212529;
+  color: white;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+.sidebar-title {
+  padding: 25px 20px;
+  text-align: center;
+  border-bottom: 1px solid #444;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 20px 10px;
+}
+
+.sidebar-menu li {
+  padding: 14px 15px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.sidebar-menu li:hover {
+  background-color: #343a40;
+}
+
+.sidebar-menu .active {
+  background-color: #0d6efd;
+}
+
+.main-content {
+  margin-left: 240px;
+  width: calc(100% - 240px);
+}
+
+.top-navbar {
+  height: 70px;
+  background-color: white;
+  border-bottom: 1px solid #ddd;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 30px;
+}
+
+.admin-profile {
+  font-weight: 600;
+}
+
+.dashboard-container {
+  padding: 30px;
+}
+
+.stat-card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 25px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.stat-card p {
+  margin-bottom: 5px;
+  color: #6c757d;
+}
+
+.stat-card h2 {
+  margin: 0;
+  font-weight: bold;
+}
+
+.stat-icon {
+  font-size: 35px;
 }
 
 .card {
   border: none;
   border-radius: 10px;
-}
-
-.card h5 {
-  color: #555;
-}
-
-.card h2 {
-  margin-top: 10px;
-  font-weight: bold;
 }
