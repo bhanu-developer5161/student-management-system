@@ -1,13 +1,12 @@
-<<<<<<< HEAD
 # 🎓 Student Management System
 
-A responsive **Student Management System frontend** built with React.js and Bootstrap. This project is designed to provide a clean and user-friendly interface for managing student information, courses, attendance, and marks.
+A responsive **Student Management System frontend** built with React.js, JavaScript, Bootstrap, HTML5, and CSS3. The project provides a modern dashboard interface for managing students, courses, attendance, and marks.
 
 ## 🚀 Project Overview
 
-The Student Management System is a frontend web application developed as a minor project to practice modern frontend development using **React.js, JavaScript, Bootstrap, HTML5, and CSS3**.
+The Student Management System is a frontend web application developed as a minor project to demonstrate practical frontend development skills using **React.js, JavaScript ES6, Bootstrap 5, HTML5, and CSS3**.
 
-The application will provide an admin dashboard where users can manage student-related information through an easy-to-use interface.
+The application provides an admin dashboard with navigation, student statistics, and a recent students section.
 
 ## 🛠️ Technologies Used
 
@@ -19,9 +18,10 @@ The application will provide an admin dashboard where users can manage student-r
 * Vite
 * Git & GitHub
 
-## ✨ Planned Features
+## ✨ Features
 
 * 📊 Admin Dashboard
+* 📌 Sidebar Navigation
 * 👨‍🎓 Student Management
 * ➕ Add Student
 * ✏️ Edit Student
@@ -32,10 +32,10 @@ The application will provide an admin dashboard where users can manage student-r
 * 📚 Course Management
 * 📅 Attendance Management
 * 📝 Marks & Grades Management
-* 💾 Local Storage Data Management
+* 💾 Local Storage
 * 📱 Responsive Design
 
-## 📌 Current Progress
+## 📌 Project Progress
 
 ### Day 1 — Project Setup ✅
 
@@ -43,29 +43,44 @@ The application will provide an admin dashboard where users can manage student-r
 * Installed project dependencies
 * Installed Bootstrap 5
 * Created basic navigation bar
-* Created dashboard
+* Created initial dashboard
 * Added student statistics cards
 * Added welcome section
-* Added basic responsive layout
+* Added basic styling
 
-### Day 2 — Dashboard ⏳
+### Day 2 — Professional Dashboard ✅
 
-* Sidebar navigation
-* Professional dashboard layout
-* Recent students table
+* Created reusable `Sidebar` React component
+* Added professional sidebar navigation
+* Added Dashboard navigation
+* Added Students navigation
+* Added Courses navigation
+* Added Attendance navigation
+* Added Marks navigation
+* Added Settings navigation
+* Created dashboard header
+* Added Admin profile section
+* Added statistics cards
+* Added Recent Students table
+* Added Add Student button
+* Added responsive Bootstrap layout
+* Added responsive CSS
 
 ### Day 3 — Student Management ⏳
 
 * Student registration form
 * Student list
-* Search and filter
-* Edit and delete functionality
+* Search functionality
+* Filter functionality
+* Edit student
+* Delete student
 
 ### Day 4 — Student Details ⏳
 
 * Student profile
-* Course information
 * Student details page
+* Course information
+* Contact information
 
 ### Day 5 — Attendance ⏳
 
@@ -75,17 +90,17 @@ The application will provide an admin dashboard where users can manage student-r
 
 ### Day 6 — Marks & Grades ⏳
 
-* Marks table
+* Marks management
 * Grade calculation
-* Student performance display
+* Student performance
 
 ### Day 7 — Final UI & Testing ⏳
 
-* Responsive design
-* UI improvements
+* Responsive improvements
 * Form validation
+* UI improvements
 * Testing
-* Final README update
+* Final documentation
 
 ## 📂 Project Structure
 
@@ -96,8 +111,12 @@ student-management-system/
 │
 ├── src/
 │   ├── components/
+│   │   └── Sidebar.jsx
+│   │
 │   ├── pages/
+│   │
 │   ├── assets/
+│   │
 │   ├── App.jsx
 │   ├── App.css
 │   ├── index.css
@@ -143,39 +162,38 @@ npm run dev
 http://localhost:5173/
 ```
 
-## 📸 Project Preview
+## 📊 Current Dashboard
 
-### Dashboard
+The current dashboard includes:
 
-The dashboard provides an overview of:
-
-* Total Students
-* Total Courses
-* Departments
-* Student management options
-
-More screenshots will be added as the project develops.
+* Total Students: 120
+* Total Courses: 8
+* Departments: 5
+* Recent Students table
+* Add Student button
+* Admin navigation
+* Sidebar navigation
 
 ## 🎯 Learning Objectives
 
-This project helps demonstrate practical knowledge of:
+This project demonstrates practical knowledge of:
 
 * React components
 * JSX
 * JavaScript ES6
-* Bootstrap responsive layouts
+* Bootstrap 5
+* Responsive web design
 * CSS styling
-* React state management
-* Form handling
-* CRUD operations
-* Local storage
+* Component-based development
 * Git & GitHub
+* Project structure and organization
 
 ## 🔮 Future Improvements
 
-* Connect the frontend to a Django REST API
-* Add authentication
+* Connect frontend with Django REST Framework
+* Add authentication and authorization
 * Add MySQL/PostgreSQL database
+* Implement complete CRUD operations
 * Add role-based access
 * Add charts and analytics
 * Deploy the application online
@@ -186,15 +204,11 @@ This project helps demonstrate practical knowledge of:
 
 MCA — Computer Science
 
-### Connect with me
+### Connect with Me
 
 * GitHub: https://github.com/bhanu-developer5161
 * LinkedIn: https://www.linkedin.com/in/satti-bhanu-suma-sri-7294a7380/
 
 ---
 
-⭐ If you find this project useful, consider giving the repository a star!
-=======
-# student-management-system
-A responsive Student Management System frontend built with React.js, JavaScript, Bootstrap, HTML5, and CSS3 for managing students, courses, attendance, and marks.
->>>>>>> 2e450e76a7b9145adb3070ceafbe935cf8523045
+⭐ **If you find this project useful, consider giving the repository a star!**
