@@ -1,14 +1,18 @@
 import "./App.css";
 import Sidebar from "./components/Sidebar";
+import Students from "./components/Students";
 
 function App() {
   return (
     <div className="app">
 
+      {/* Sidebar */}
       <Sidebar />
 
+      {/* Main Content */}
       <div className="main-content">
 
+        {/* Top Navbar */}
         <nav className="top-navbar">
           <h4>Dashboard</h4>
 
@@ -17,6 +21,7 @@ function App() {
           </div>
         </nav>
 
+        {/* Dashboard */}
         <div className="dashboard-container">
 
           <h2>
@@ -27,6 +32,7 @@ function App() {
             Here's what's happening with your students today.
           </p>
 
+          {/* Statistics */}
           <div className="row mt-4">
 
             <div className="col-lg-4 col-md-6 mb-4">
@@ -70,81 +76,10 @@ function App() {
 
           </div>
 
-          <div className="card shadow-sm">
+          {/* Students Section */}
+          <div className="students-section mt-4">
 
-            <div className="card-body">
-
-              <div className="d-flex justify-content-between align-items-center mb-3">
-
-                <h4>
-                  Recent Students
-                </h4>
-
-                <button className="btn btn-primary">
-                  + Add Student
-                </button>
-
-              </div>
-
-              <div className="table-responsive">
-
-                <table className="table table-hover">
-
-                  <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>Name</th>
-                      <th>Email</th>
-                      <th>Course</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-
-                  <tbody>
-
-                    <tr>
-                      <td>ST001</td>
-                      <td>Rahul Kumar</td>
-                      <td>rahul@example.com</td>
-                      <td>B.Sc Computer Science</td>
-                      <td>
-                        <button className="btn btn-sm btn-outline-primary">
-                          View
-                        </button>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>ST002</td>
-                      <td>Priya Sharma</td>
-                      <td>priya@example.com</td>
-                      <td>BCA</td>
-                      <td>
-                        <button className="btn btn-sm btn-outline-primary">
-                          View
-                        </button>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>ST003</td>
-                      <td>Arjun Reddy</td>
-                      <td>arjun@example.com</td>
-                      <td>B.Sc Mathematics</td>
-                      <td>
-                        <button className="btn btn-sm btn-outline-primary">
-                          View
-                        </button>
-                      </td>
-                    </tr>
-
-                  </tbody>
-
-                </table>
-
-              </div>
-
-            </div>
+            <Students />
 
           </div>
 
