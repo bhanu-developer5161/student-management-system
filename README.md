@@ -92,7 +92,7 @@ This project is being developed through a **10-day daily development challenge**
 - Attendance statistics
 - LocalStorage persistence
 
-### ⏳ Day 06 — Marks Management
+### 🟢 Day 06 — Marks Management
 - Subject-wise marks
 - Total marks
 - Average marks

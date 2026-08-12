@@ -2,10 +2,14 @@ function Sidebar({
   activePage,
   setActivePage,
 }) {
-  return (
-    <div className="sidebar">
+  const handleNavigation = (page) => {
+    setActivePage(page);
+  };
 
-      {/* Header */}
+  return (
+    <aside className="sidebar">
+
+      {/* Logo */}
 
       <div className="sidebar-header">
 
@@ -13,96 +17,159 @@ function Sidebar({
           Student Management
         </h4>
 
-        <small>
+        <p>
           Admin Panel
-        </small>
+        </p>
 
       </div>
 
 
-      {/* Menu */}
+      {/* Navigation */}
 
       <div className="sidebar-menu">
 
         {/* Dashboard */}
 
         <button
-          className={`sidebar-item ${
+          type="button"
+          className={
             activePage === "dashboard"
-              ? "active"
-              : ""
-          }`}
+              ? "sidebar-item active"
+              : "sidebar-item"
+          }
           onClick={() =>
-            setActivePage("dashboard")
+            handleNavigation("dashboard")
           }
         >
           <span>📊</span>
-          Dashboard
+
+          <span>Dashboard</span>
         </button>
 
 
         {/* Students */}
 
         <button
-          className={`sidebar-item ${
+          type="button"
+          className={
             activePage === "students"
-              ? "active"
-              : ""
-          }`}
+              ? "sidebar-item active"
+              : "sidebar-item"
+          }
           onClick={() =>
-            setActivePage("students")
+            handleNavigation("students")
           }
         >
           <span>👨‍🎓</span>
-          Students
+
+          <span>Students</span>
         </button>
 
 
         {/* Attendance */}
 
         <button
-          className={`sidebar-item ${
+          type="button"
+          className={
             activePage === "attendance"
-              ? "active"
-              : ""
-          }`}
+              ? "sidebar-item active"
+              : "sidebar-item"
+          }
           onClick={() =>
-            setActivePage("attendance")
+            handleNavigation("attendance")
           }
         >
           <span>📋</span>
-          Attendance
-        </button>
 
-
-        {/* Courses */}
-
-        <button
-          className="sidebar-item"
-          onClick={() =>
-            alert("Courses module coming soon!")
-          }
-        >
-          <span>📚</span>
-          Courses
+          <span>Attendance</span>
         </button>
 
 
         {/* Marks */}
 
         <button
-          className="sidebar-item"
+          type="button"
+          className={
+            activePage === "marks"
+              ? "sidebar-item active"
+              : "sidebar-item"
+          }
           onClick={() =>
-            alert("Marks module coming soon!")
+            handleNavigation("marks")
           }
         >
           <span>📝</span>
-          Marks
+
+          <span>Marks</span>
+        </button>
+
+
+        {/* Courses */}
+
+        <button
+          type="button"
+          className="sidebar-item"
+          onClick={() =>
+            alert("Courses module coming soon!")
+          }
+        >
+          <span>📚</span>
+
+          <span>Courses</span>
+        </button>
+
+
+        {/* Departments */}
+
+        <button
+          type="button"
+          className="sidebar-item"
+          onClick={() =>
+            alert(
+              "Departments module coming soon!"
+            )
+          }
+        >
+          <span>🏢</span>
+
+          <span>Departments</span>
+        </button>
+
+
+        {/* Reports */}
+
+        <button
+          type="button"
+          className="sidebar-item"
+          onClick={() =>
+            alert(
+              "Reports module coming soon!"
+            )
+          }
+        >
+          <span>📈</span>
+
+          <span>Reports</span>
         </button>
 
       </div>
 
-    </div>
+
+      {/* Footer */}
+
+      <div className="sidebar-footer">
+
+        <small>
+          Student Management System
+        </small>
+
+        <small>
+          React.js Project
+        </small>
+
+      </div>
+
+    </aside>
   );
 }
 
