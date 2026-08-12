@@ -5,6 +5,8 @@ import Sidebar from "./components/Sidebar";
 import Students from "./components/Students";
 import Attendance from "./components/Attendance";
 import Marks from "./components/Marks";
+import Courses from "./components/Courses";
+import Departments from "./components/Departments";
 
 function App() {
   const [activePage, setActivePage] = useState("dashboard");
@@ -19,6 +21,12 @@ function App() {
 
       case "marks":
         return <Marks />;
+
+      case "courses":
+        return <Courses />;
+
+      case "departments":
+        return <Departments />;
 
       case "dashboard":
       default:
@@ -117,13 +125,23 @@ function App() {
         <nav className="top-navbar">
 
           <h4>
-            {activePage === "dashboard" && "Dashboard"}
+            {activePage === "dashboard" &&
+              "Dashboard"}
 
-            {activePage === "students" && "Students"}
+            {activePage === "students" &&
+              "Students"}
 
-            {activePage === "attendance" && "Attendance"}
+            {activePage === "attendance" &&
+              "Attendance"}
 
-            {activePage === "marks" && "Marks Management"}
+            {activePage === "marks" &&
+              "Marks Management"}
+
+            {activePage === "courses" &&
+              "Course Management"}
+
+            {activePage === "departments" &&
+              "Department Management"}
           </h4>
 
           <div className="admin-profile">

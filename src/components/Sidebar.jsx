@@ -2,14 +2,10 @@ function Sidebar({
   activePage,
   setActivePage,
 }) {
-  const handleNavigation = (page) => {
-    setActivePage(page);
-  };
-
   return (
     <aside className="sidebar">
 
-      {/* Logo */}
+      {/* Header */}
 
       <div className="sidebar-header">
 
@@ -38,11 +34,10 @@ function Sidebar({
               : "sidebar-item"
           }
           onClick={() =>
-            handleNavigation("dashboard")
+            setActivePage("dashboard")
           }
         >
           <span>📊</span>
-
           <span>Dashboard</span>
         </button>
 
@@ -57,11 +52,10 @@ function Sidebar({
               : "sidebar-item"
           }
           onClick={() =>
-            handleNavigation("students")
+            setActivePage("students")
           }
         >
           <span>👨‍🎓</span>
-
           <span>Students</span>
         </button>
 
@@ -76,11 +70,10 @@ function Sidebar({
               : "sidebar-item"
           }
           onClick={() =>
-            handleNavigation("attendance")
+            setActivePage("attendance")
           }
         >
           <span>📋</span>
-
           <span>Attendance</span>
         </button>
 
@@ -95,11 +88,10 @@ function Sidebar({
               : "sidebar-item"
           }
           onClick={() =>
-            handleNavigation("marks")
+            setActivePage("marks")
           }
         >
           <span>📝</span>
-
           <span>Marks</span>
         </button>
 
@@ -108,13 +100,16 @@ function Sidebar({
 
         <button
           type="button"
-          className="sidebar-item"
+          className={
+            activePage === "courses"
+              ? "sidebar-item active"
+              : "sidebar-item"
+          }
           onClick={() =>
-            alert("Courses module coming soon!")
+            setActivePage("courses")
           }
         >
           <span>📚</span>
-
           <span>Courses</span>
         </button>
 
@@ -123,15 +118,16 @@ function Sidebar({
 
         <button
           type="button"
-          className="sidebar-item"
+          className={
+            activePage === "departments"
+              ? "sidebar-item active"
+              : "sidebar-item"
+          }
           onClick={() =>
-            alert(
-              "Departments module coming soon!"
-            )
+            setActivePage("departments")
           }
         >
           <span>🏢</span>
-
           <span>Departments</span>
         </button>
 
@@ -148,7 +144,6 @@ function Sidebar({
           }
         >
           <span>📈</span>
-
           <span>Reports</span>
         </button>
 
