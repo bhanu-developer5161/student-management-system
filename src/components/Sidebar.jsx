@@ -1,38 +1,106 @@
-function Sidebar() {
+function Sidebar({
+  activePage,
+  setActivePage,
+}) {
   return (
     <div className="sidebar">
 
-      <h4 className="sidebar-title">
-        Student System
-      </h4>
+      {/* Header */}
 
-      <ul className="sidebar-menu">
+      <div className="sidebar-header">
 
-        <li className="active">
-          📊 Dashboard
-        </li>
+        <h4>
+          Student Management
+        </h4>
 
-        <li>
-          👨‍🎓 Students
-        </li>
+        <small>
+          Admin Panel
+        </small>
 
-        <li>
-          📚 Courses
-        </li>
+      </div>
 
-        <li>
-          📅 Attendance
-        </li>
 
-        <li>
-          📝 Marks
-        </li>
+      {/* Menu */}
 
-        <li>
-          ⚙️ Settings
-        </li>
+      <div className="sidebar-menu">
 
-      </ul>
+        {/* Dashboard */}
+
+        <button
+          className={`sidebar-item ${
+            activePage === "dashboard"
+              ? "active"
+              : ""
+          }`}
+          onClick={() =>
+            setActivePage("dashboard")
+          }
+        >
+          <span>📊</span>
+          Dashboard
+        </button>
+
+
+        {/* Students */}
+
+        <button
+          className={`sidebar-item ${
+            activePage === "students"
+              ? "active"
+              : ""
+          }`}
+          onClick={() =>
+            setActivePage("students")
+          }
+        >
+          <span>👨‍🎓</span>
+          Students
+        </button>
+
+
+        {/* Attendance */}
+
+        <button
+          className={`sidebar-item ${
+            activePage === "attendance"
+              ? "active"
+              : ""
+          }`}
+          onClick={() =>
+            setActivePage("attendance")
+          }
+        >
+          <span>📋</span>
+          Attendance
+        </button>
+
+
+        {/* Courses */}
+
+        <button
+          className="sidebar-item"
+          onClick={() =>
+            alert("Courses module coming soon!")
+          }
+        >
+          <span>📚</span>
+          Courses
+        </button>
+
+
+        {/* Marks */}
+
+        <button
+          className="sidebar-item"
+          onClick={() =>
+            alert("Marks module coming soon!")
+          }
+        >
+          <span>📝</span>
+          Marks
+        </button>
+
+      </div>
 
     </div>
   );
