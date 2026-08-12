@@ -33,7 +33,7 @@ This project is being developed through a **10-day daily development challenge**
 | 👨‍🎓 Students | Add, View, Edit, Delete, Search | ✅ |
 | 👤 Student Profile | Personal, Contact & Academic Details | ✅ |
 | 📋 Attendance | Present, Absent, Percentage & Status | ✅ |
-| 📝 Marks | Subject Marks & Grades | ⏳ |
+| 📝 Marks | Subject Marks & Grades |  ✅  |
 | 📚 Courses | Course Management | ⏳ |
 | 🏢 Departments | Department Management | ⏳ |
 | 📈 Reports | Reports & Analytics | ⏳ |
