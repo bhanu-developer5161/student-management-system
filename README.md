@@ -34,8 +34,8 @@ This project is being developed through a **10-day daily development challenge**
 | 👤 Student Profile | Personal, Contact & Academic Details | ✅ |
 | 📋 Attendance | Present, Absent, Percentage & Status | ✅ |
 | 📝 Marks | Subject Marks & Grades |  ✅  |
-| 📚 Courses | Course Management | ⏳ |
-| 🏢 Departments | Department Management | ⏳ |
+| 📚 Courses | Course Management | ✅  |
+| 🏢 Departments | Department Management | ✅  |
 | 📈 Reports | Reports & Analytics | ⏳ |
 | 🔐 Authentication | Login & Admin Authentication | ⏳ |
 | 🌐 Deployment | Production Deployment | ⏳ |
@@ -99,7 +99,7 @@ This project is being developed through a **10-day daily development challenge**
 - Grade calculation
 - Performance tracking
 
-### ⏳ Day 07 — Courses & Departments
+### 🟢 Day 07 — Courses & Departments
 - Course management
 - Department management
 - Search and CRUD operations
