@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
+import StudentProfile from "./StudentProfile";
 
 function Students() {
   const [showForm, setShowForm] = useState(false);
   const [search, setSearch] = useState("");
   const [editingId, setEditingId] = useState(null);
+  const [selectedStudent, setSelectedStudent] = useState(null);
 
+  // Student data
   const [students, setStudents] = useState(() => {
     const savedStudents = localStorage.getItem("students");
 
@@ -21,6 +24,13 @@ function Students() {
             course: "B.Sc Computer Science",
             department: "Computer Science",
             address: "Hyderabad",
+            attendance: 92,
+            marks: {
+              python: 88,
+              database: 82,
+              webDevelopment: 86,
+              javascript: 84,
+            },
           },
           {
             id: "ST002",
@@ -32,10 +42,18 @@ function Students() {
             course: "BCA",
             department: "Computer Science",
             address: "Vijayawada",
+            attendance: 95,
+            marks: {
+              python: 91,
+              database: 89,
+              webDevelopment: 94,
+              javascript: 90,
+            },
           },
         ];
   });
 
+  // Form data
   const [formData, setFormData] = useState({
     id: "",
     name: "",
@@ -46,20 +64,40 @@ function Students() {
     course: "",
     department: "",
     address: "",
+    attendance: 0,
+    marks: {
+      python: 0,
+      database: 0,
+      webDevelopment: 0,
+      javascript: 0,
+    },
   });
 
-  // Save students to localStorage
+  // Save students to LocalStorage
   useEffect(() => {
     localStorage.setItem("students", JSON.stringify(students));
   }, [students]);
 
-  // Handle form input
+  // Handle normal input
   const handleChange = (event) => {
     const { name, value } = event.target;
 
     setFormData({
       ...formData,
       [name]: value,
+    });
+  };
+
+  // Handle marks input
+  const handleMarksChange = (event) => {
+    const { name, value } = event.target;
+
+    setFormData({
+      ...formData,
+      marks: {
+        ...formData.marks,
+        [name]: value,
+      },
     });
   };
 
@@ -75,6 +113,13 @@ function Students() {
       course: "",
       department: "",
       address: "",
+      attendance: 0,
+      marks: {
+        python: 0,
+        database: 0,
+        webDevelopment: 0,
+        javascript: 0,
+      },
     });
 
     setEditingId(null);
@@ -99,15 +144,33 @@ function Students() {
       return;
     }
 
+    // Convert attendance and marks to numbers
+    const studentData = {
+      ...formData,
+      attendance: Number(formData.attendance),
+      marks: {
+        python: Number(formData.marks.python),
+        database: Number(formData.marks.database),
+        webDevelopment: Number(
+          formData.marks.webDevelopment
+        ),
+        javascript: Number(
+          formData.marks.javascript
+        ),
+      },
+    };
+
     // Update student
     if (editingId) {
       const updatedStudents = students.map((student) =>
-        student.id === editingId ? formData : student
+        student.id === editingId
+          ? studentData
+          : student
       );
 
       setStudents(updatedStudents);
     } else {
-      // Check duplicate ID
+      // Check duplicate Student ID
       const studentExists = students.some(
         (student) => student.id === formData.id
       );
@@ -117,7 +180,10 @@ function Students() {
         return;
       }
 
-      setStudents([...students, formData]);
+      setStudents([
+        ...students,
+        studentData,
+      ]);
     }
 
     resetForm();
@@ -125,7 +191,27 @@ function Students() {
 
   // Edit student
   const handleEdit = (student) => {
-    setFormData(student);
+    setFormData({
+      id: student.id || "",
+      name: student.name || "",
+      email: student.email || "",
+      phone: student.phone || "",
+      gender: student.gender || "",
+      dob: student.dob || "",
+      course: student.course || "",
+      department: student.department || "",
+      address: student.address || "",
+      attendance: student.attendance || 0,
+      marks: {
+        python: student.marks?.python || 0,
+        database: student.marks?.database || 0,
+        webDevelopment:
+          student.marks?.webDevelopment || 0,
+        javascript:
+          student.marks?.javascript || 0,
+      },
+    });
+
     setEditingId(student.id);
     setShowForm(true);
 
@@ -153,11 +239,28 @@ function Students() {
   };
 
   // Search students
-  const filteredStudents = students.filter((student) =>
-    student.name.toLowerCase().includes(search.toLowerCase()) ||
-    student.id.toLowerCase().includes(search.toLowerCase()) ||
-    student.email.toLowerCase().includes(search.toLowerCase())
+  const filteredStudents = students.filter(
+    (student) =>
+      student.name
+        .toLowerCase()
+        .includes(search.toLowerCase()) ||
+      student.id
+        .toLowerCase()
+        .includes(search.toLowerCase()) ||
+      student.email
+        .toLowerCase()
+        .includes(search.toLowerCase())
   );
+
+  // Show Student Profile
+  if (selectedStudent) {
+    return (
+      <StudentProfile
+        student={selectedStudent}
+        onBack={() => setSelectedStudent(null)}
+      />
+    );
+  }
 
   return (
     <div className="card shadow-sm">
@@ -184,14 +287,17 @@ function Students() {
               }
             }}
           >
-            {showForm ? "Close Form" : "+ Add Student"}
+            {showForm
+              ? "Close Form"
+              : "+ Add Student"}
           </button>
 
         </div>
 
-        {/* Add / Edit Student Form */}
+        {/* Add / Edit Form */}
         {showForm && (
           <div className="card bg-light mb-4">
+
             <div className="card-body">
 
               <h4 className="mb-4">
@@ -218,7 +324,9 @@ function Students() {
                       onChange={handleChange}
                       className="form-control"
                       placeholder="ST003"
-                      disabled={editingId !== null}
+                      disabled={
+                        editingId !== null
+                      }
                     />
 
                   </div>
@@ -412,6 +520,118 @@ function Students() {
 
                   </div>
 
+                  {/* Attendance */}
+                  <div className="col-md-6 mb-3">
+
+                    <label className="form-label">
+                      Attendance (%)
+                    </label>
+
+                    <input
+                      type="number"
+                      name="attendance"
+                      value={formData.attendance}
+                      onChange={handleChange}
+                      className="form-control"
+                      min="0"
+                      max="100"
+                    />
+
+                  </div>
+
+                </div>
+
+                {/* Marks Section */}
+                <h5 className="mt-3 mb-3">
+                  Subject Marks
+                </h5>
+
+                <div className="row">
+
+                  {/* Python */}
+                  <div className="col-md-3 mb-3">
+
+                    <label className="form-label">
+                      Python
+                    </label>
+
+                    <input
+                      type="number"
+                      name="python"
+                      value={
+                        formData.marks.python
+                      }
+                      onChange={handleMarksChange}
+                      className="form-control"
+                      min="0"
+                      max="100"
+                    />
+
+                  </div>
+
+                  {/* Database */}
+                  <div className="col-md-3 mb-3">
+
+                    <label className="form-label">
+                      Database
+                    </label>
+
+                    <input
+                      type="number"
+                      name="database"
+                      value={
+                        formData.marks.database
+                      }
+                      onChange={handleMarksChange}
+                      className="form-control"
+                      min="0"
+                      max="100"
+                    />
+
+                  </div>
+
+                  {/* Web Development */}
+                  <div className="col-md-3 mb-3">
+
+                    <label className="form-label">
+                      Web Development
+                    </label>
+
+                    <input
+                      type="number"
+                      name="webDevelopment"
+                      value={
+                        formData.marks.webDevelopment
+                      }
+                      onChange={handleMarksChange}
+                      className="form-control"
+                      min="0"
+                      max="100"
+                    />
+
+                  </div>
+
+                  {/* JavaScript */}
+                  <div className="col-md-3 mb-3">
+
+                    <label className="form-label">
+                      JavaScript
+                    </label>
+
+                    <input
+                      type="number"
+                      name="javascript"
+                      value={
+                        formData.marks.javascript
+                      }
+                      onChange={handleMarksChange}
+                      className="form-control"
+                      min="0"
+                      max="100"
+                    />
+
+                  </div>
+
                 </div>
 
                 {/* Buttons */}
@@ -467,6 +687,7 @@ function Students() {
                 <th>Phone</th>
                 <th>Course</th>
                 <th>Department</th>
+                <th>Attendance</th>
                 <th>Action</th>
               </tr>
 
@@ -493,7 +714,24 @@ function Students() {
                     <td>{student.department}</td>
 
                     <td>
+                      <span className="badge bg-success">
+                        {student.attendance || 0}%
+                      </span>
+                    </td>
 
+                    <td>
+
+                      {/* View */}
+                      <button
+                        className="btn btn-sm btn-outline-info me-2"
+                        onClick={() =>
+                          setSelectedStudent(student)
+                        }
+                      >
+                        View
+                      </button>
+
+                      {/* Edit */}
                       <button
                         className="btn btn-sm btn-outline-primary me-2"
                         onClick={() =>
@@ -503,6 +741,7 @@ function Students() {
                         Edit
                       </button>
 
+                      {/* Delete */}
                       <button
                         className="btn btn-sm btn-outline-danger"
                         onClick={() =>
@@ -523,7 +762,7 @@ function Students() {
                 <tr>
 
                   <td
-                    colSpan="7"
+                    colSpan="8"
                     className="text-center text-muted py-4"
                   >
                     No students found.
