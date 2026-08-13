@@ -1,3 +1,9 @@
+import React from "react";
+
+/* =========================================
+   GET AVERAGE MARKS
+========================================= */
+
 const getAverageMarks = (marks) => {
   if (!marks) {
     return 0;
@@ -18,6 +24,10 @@ const getAverageMarks = (marks) => {
   return Math.round(total / values.length);
 };
 
+
+/* =========================================
+   GET GRADE
+========================================= */
 
 const getGrade = (mark) => {
   const score = Number(mark || 0);
@@ -46,6 +56,10 @@ const getGrade = (mark) => {
 };
 
 
+/* =========================================
+   GET GRADE CLASS
+========================================= */
+
 const getGradeClass = (mark) => {
   const score = Number(mark || 0);
 
@@ -61,21 +75,93 @@ const getGradeClass = (mark) => {
 };
 
 
+/* =========================================
+   GET PERFORMANCE
+========================================= */
+
+const getPerformance = (mark) => {
+  const score = Number(mark || 0);
+
+  if (score >= 80) {
+    return "Excellent";
+  }
+
+  if (score >= 60) {
+    return "Good";
+  }
+
+  if (score >= 50) {
+    return "Average";
+  }
+
+  return "Poor";
+};
+
+
+/* =========================================
+   GET ATTENDANCE STATUS
+========================================= */
+
+const getAttendanceStatus = (attendance) => {
+  const score = Number(attendance || 0);
+
+  if (score >= 75) {
+    return {
+      text: "Good",
+      className: "bg-success",
+    };
+  }
+
+  if (score >= 60) {
+    return {
+      text: "Needs Improvement",
+      className: "bg-warning text-dark",
+    };
+  }
+
+  return {
+    text: "Low",
+    className: "bg-danger",
+  };
+};
+
+
+/* =========================================
+   STUDENT PROFILE
+========================================= */
+
 function StudentProfile({ student, onBack }) {
 
-  // Student not found
+  /* =========================================
+     STUDENT NOT FOUND
+  ========================================== */
+
   if (!student) {
     return (
       <div className="card shadow-sm">
-        <div className="card-body text-center">
+        <div className="card-body text-center py-5">
 
-          <h4>Student Not Found</h4>
+          <div
+            style={{
+              fontSize: "50px",
+            }}
+          >
+            👤
+          </div>
+
+          <h4 className="mt-3">
+            Student Not Found
+          </h4>
+
+          <p className="text-muted">
+            The selected student could not be found.
+          </p>
 
           <button
-            className="btn btn-primary mt-3"
+            className="btn btn-primary mt-2"
             onClick={onBack}
           >
-            Back to Students
+            ← Back to Students
           </button>
 
         </div>
@@ -84,13 +170,22 @@ function StudentProfile({ student, onBack }) {
   }
 
 
-  // Attendance
+  /* =========================================
+     ATTENDANCE
+  ========================================== */
+
   const attendance = Number(
     student.attendance || 0
   );
 
+  const attendanceStatus =
+    getAttendanceStatus(attendance);
 
-  // Marks
+
+  /* =========================================
+     MARKS
+  ========================================== */
+
   const marks = {
     python: Number(
       student.marks?.python || 0
@@ -110,11 +205,29 @@ function StudentProfile({ student, onBack }) {
   };
 
 
-  // Average marks
-  const averageMarks = getAverageMarks(marks);
+  /* =========================================
+     MARK CALCULATIONS
+  ========================================== */
+
+  const averageMarks =
+    getAverageMarks(marks);
+
+  const totalMarks =
+    marks.python +
+    marks.database +
+    marks.webDevelopment +
+    marks.javascript;
+
+  const grade = getGrade(averageMarks);
+
+  const performance =
+    getPerformance(averageMarks);
 
 
-  // Performance status
+  /* =========================================
+     PERFORMANCE STATUS
+  ========================================== */
+
   let performanceStatus;
   let performanceClass;
 
@@ -136,18 +249,48 @@ function StudentProfile({ student, onBack }) {
   }
 
 
+  /* =========================================
+     SUBJECT DATA
+  ========================================== */
+
+  const subjects = [
+    {
+      name: "Python",
+      value: marks.python,
+    },
+    {
+      name: "Database Management",
+      value: marks.database,
+    },
+    {
+      name: "Web Development",
+      value: marks.webDevelopment,
+    },
+    {
+      name: "JavaScript",
+      value: marks.javascript,
+    },
+  ];
+
+
+  /* =========================================
+     RENDER
+  ========================================== */
+
   return (
     <div className="card shadow-sm student-profile">
 
       <div className="card-body">
 
-        {/* Header */}
+        {/* =====================================
+            HEADER
+        ====================================== */}
 
-        <div className="d-flex justify-content-between align-items-center mb-4">
+        <div className="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
 
           <div>
 
-            <h3>
+            <h3 className="mb-1">
               Student Profile
             </h3>
 
@@ -168,41 +311,93 @@ function StudentProfile({ student, onBack }) {
         </div>
 
 
-        {/* Profile Header */}
+        {/* =====================================
+            PROFILE HEADER
+        ====================================== */}
 
-        <div className="profile-header mb-4">
+        <div className="card border-primary mb-4">
 
-          <div className="profile-avatar">
-            👤
-          </div>
+          <div className="card-body">
+
+            <div className="row align-items-center">
+
+              {/* Avatar */}
+
+              <div className="col-md-2 text-center mb-3 mb-md-0">
+
+                <div
+                  className="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center mx-auto"
+                  style={{
+                    width: "90px",
+                    height: "90px",
+                    fontSize: "40px",
+                  }}
+                >
+                  👤
+                </div>
+
+              </div>
 
 
-          <div>
+              {/* Student Details */}
 
-            <h4>
-              {student.name}
-            </h4>
+              <div className="col-md-7">
 
-            <p className="text-muted mb-1">
-              Student ID: {student.id}
-            </p>
+                <h4 className="mb-1">
+                  {student.name}
+                </h4>
 
-            <span className="badge bg-success">
-              Active
-            </span>
+                <p className="text-muted mb-1">
+                  Student ID: {student.id}
+                </p>
+
+                <p className="text-muted mb-2">
+                  {student.course || "Course not provided"}
+                </p>
+
+                <span className="badge bg-success">
+                  Active
+                </span>
+
+              </div>
+
+
+              {/* Grade */}
+
+              <div className="col-md-3 text-md-end mt-3 mt-md-0">
+
+                <small className="text-muted d-block">
+                  Overall Grade
+                </small>
+
+                <h1
+                  className={
+                    grade === "F"
+                      ? "text-danger"
+                      : "text-success"
+                  }
+                >
+                  {grade}
+                </h1>
+
+              </div>
+
+            </div>
 
           </div>
 
         </div>
 
 
-        {/* Summary Cards */}
+        {/* =====================================
+            SUMMARY CARDS
+        ====================================== */}
 
         <div className="row mb-4">
 
-          {/* Attendance Card */}
+          {/* Attendance */}
 
-          <div className="col-md-4 mb-3">
+          <div className="col-lg-4 col-md-6 mb-3">
 
             <div className="card border-primary h-100">
 
@@ -212,13 +407,15 @@ function StudentProfile({ student, onBack }) {
                   Attendance
                 </h6>
 
-                <h3 className="text-primary">
+                <h2 className="text-primary">
                   {attendance}%
-                </h3>
+                </h2>
 
-                <p className="mb-0">
-                  Overall Attendance
-                </p>
+                <span
+                  className={`badge ${attendanceStatus.className}`}
+                >
+                  {attendanceStatus.text}
+                </span>
 
               </div>
 
@@ -227,9 +424,9 @@ function StudentProfile({ student, onBack }) {
           </div>
 
 
-          {/* Average Marks Card */}
+          {/* Average Marks */}
 
-          <div className="col-md-4 mb-3">
+          <div className="col-lg-4 col-md-6 mb-3">
 
             <div className="card border-success h-100">
 
@@ -239,13 +436,13 @@ function StudentProfile({ student, onBack }) {
                   Average Marks
                 </h6>
 
-                <h3 className="text-success">
+                <h2 className="text-success">
                   {averageMarks}%
-                </h3>
+                </h2>
 
-                <p className="mb-0">
+                <small className="text-muted">
                   Academic Performance
-                </p>
+                </small>
 
               </div>
 
@@ -254,9 +451,9 @@ function StudentProfile({ student, onBack }) {
           </div>
 
 
-          {/* Course Card */}
+          {/* Course */}
 
-          <div className="col-md-4 mb-3">
+          <div className="col-lg-4 col-md-12 mb-3">
 
             <div className="card border-warning h-100">
 
@@ -267,11 +464,107 @@ function StudentProfile({ student, onBack }) {
                 </h6>
 
                 <h5 className="mt-2">
-                  {student.course}
+                  {student.course || "Not provided"}
                 </h5>
 
-                <p className="mb-0">
+                <small className="text-muted">
                   Current Course
+                </small>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        {/* =====================================
+            PERSONAL INFORMATION
+        ====================================== */}
+
+        <h5 className="profile-section-title mb-3">
+          👤 Personal Information
+        </h5>
+
+        <div className="row">
+
+          <div className="col-md-6 mb-3">
+
+            <div className="card h-100">
+
+              <div className="card-body">
+
+                <small className="text-muted">
+                  Student ID
+                </small>
+
+                <p className="fw-semibold mb-0">
+                  {student.id}
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div className="col-md-6 mb-3">
+
+            <div className="card h-100">
+
+              <div className="card-body">
+
+                <small className="text-muted">
+                  Full Name
+                </small>
+
+                <p className="fw-semibold mb-0">
+                  {student.name}
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div className="col-md-6 mb-3">
+
+            <div className="card h-100">
+
+              <div className="card-body">
+
+                <small className="text-muted">
+                  Gender
+                </small>
+
+                <p className="fw-semibold mb-0">
+                  {student.gender || "Not provided"}
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div className="col-md-6 mb-3">
+
+            <div className="card h-100">
+
+              <div className="card-body">
+
+                <small className="text-muted">
+                  Date of Birth
+                </small>
+
+                <p className="fw-semibold mb-0">
+                  {student.dob || "Not provided"}
                 </p>
 
               </div>
@@ -283,222 +576,226 @@ function StudentProfile({ student, onBack }) {
         </div>
 
 
-        {/* Personal Information */}
+        {/* =====================================
+            CONTACT INFORMATION
+        ====================================== */}
 
-        <h5 className="profile-section-title">
-          Personal Information
+        <h5 className="profile-section-title mb-3 mt-3">
+          📞 Contact Information
         </h5>
-
 
         <div className="row">
 
           <div className="col-md-6 mb-3">
 
-            <strong>
-              Student ID
-            </strong>
+            <div className="card h-100">
 
-            <p>
-              {student.id}
-            </p>
+              <div className="card-body">
 
-          </div>
+                <small className="text-muted">
+                  Email
+                </small>
 
+                <p className="fw-semibold mb-0">
+                  {student.email || "Not provided"}
+                </p>
 
-          <div className="col-md-6 mb-3">
+              </div>
 
-            <strong>
-              Full Name
-            </strong>
-
-            <p>
-              {student.name}
-            </p>
+            </div>
 
           </div>
 
 
           <div className="col-md-6 mb-3">
 
-            <strong>
-              Gender
-            </strong>
+            <div className="card h-100">
 
-            <p>
-              {student.gender || "Not provided"}
-            </p>
+              <div className="card-body">
 
-          </div>
+                <small className="text-muted">
+                  Phone
+                </small>
 
+                <p className="fw-semibold mb-0">
+                  {student.phone || "Not provided"}
+                </p>
 
-          <div className="col-md-6 mb-3">
+              </div>
 
-            <strong>
-              Date of Birth
-            </strong>
-
-            <p>
-              {student.dob || "Not provided"}
-            </p>
-
-          </div>
-
-        </div>
-
-
-        {/* Contact Information */}
-
-        <h5 className="profile-section-title">
-          Contact Information
-        </h5>
-
-
-        <div className="row">
-
-          <div className="col-md-6 mb-3">
-
-            <strong>
-              Email
-            </strong>
-
-            <p>
-              {student.email}
-            </p>
-
-          </div>
-
-
-          <div className="col-md-6 mb-3">
-
-            <strong>
-              Phone
-            </strong>
-
-            <p>
-              {student.phone}
-            </p>
+            </div>
 
           </div>
 
 
           <div className="col-12 mb-3">
 
-            <strong>
-              Address
-            </strong>
+            <div className="card">
 
-            <p>
-              {student.address ||
-                "Not provided"}
-            </p>
+              <div className="card-body">
+
+                <small className="text-muted">
+                  Address
+                </small>
+
+                <p className="fw-semibold mb-0">
+                  {student.address || "Not provided"}
+                </p>
+
+              </div>
+
+            </div>
 
           </div>
 
         </div>
 
 
-        {/* Academic Information */}
+        {/* =====================================
+            ACADEMIC INFORMATION
+        ====================================== */}
 
-        <h5 className="profile-section-title">
-          Academic Information
+        <h5 className="profile-section-title mb-3 mt-3">
+          🎓 Academic Information
         </h5>
-
 
         <div className="row">
 
           <div className="col-md-6 mb-3">
 
-            <strong>
-              Course
-            </strong>
+            <div className="card h-100">
 
-            <p>
-              {student.course}
-            </p>
+              <div className="card-body">
+
+                <small className="text-muted">
+                  Course
+                </small>
+
+                <p className="fw-semibold mb-0">
+                  {student.course || "Not provided"}
+                </p>
+
+              </div>
+
+            </div>
 
           </div>
 
 
           <div className="col-md-6 mb-3">
 
-            <strong>
-              Department
-            </strong>
+            <div className="card h-100">
 
-            <p>
-              {student.department}
-            </p>
+              <div className="card-body">
 
-          </div>
+                <small className="text-muted">
+                  Department
+                </small>
 
-        </div>
+                <p className="fw-semibold mb-0">
+                  {student.department || "Not provided"}
+                </p>
 
+              </div>
 
-        {/* Attendance Overview */}
-
-        <h5 className="profile-section-title">
-          Attendance Overview
-        </h5>
-
-
-        <div className="mb-3">
-
-          <div className="d-flex justify-content-between">
-
-            <span>
-              Overall Attendance
-            </span>
-
-            <strong>
-              {attendance}%
-            </strong>
-
-          </div>
-
-
-          <div className="progress mt-2">
-
-            <div
-              className={`progress-bar ${
-                attendance >= 75
-                  ? "bg-success"
-                  : "bg-danger"
-              }`}
-              style={{
-                width: `${attendance}%`,
-              }}
-            >
-              {attendance}%
             </div>
 
           </div>
 
+        </div>
 
-          <small className="text-muted">
 
-            {attendance >= 75
-              ? "Attendance requirement satisfied"
-              : "Attendance below 75%"}
+        {/* =====================================
+            ATTENDANCE OVERVIEW
+        ====================================== */}
 
-          </small>
+        <h5 className="profile-section-title mb-3 mt-3">
+          📅 Attendance Overview
+        </h5>
+
+        <div className="card mb-4">
+
+          <div className="card-body">
+
+            <div className="d-flex justify-content-between">
+
+              <span>
+                Overall Attendance
+              </span>
+
+              <strong>
+                {attendance}%
+              </strong>
+
+            </div>
+
+
+            <div className="progress mt-2">
+
+              <div
+                className={`progress-bar ${
+                  attendance >= 75
+                    ? "bg-success"
+                    : attendance >= 60
+                    ? "bg-warning"
+                    : "bg-danger"
+                }`}
+                style={{
+                  width: `${Math.min(
+                    Math.max(attendance, 0),
+                    100
+                  )}%`,
+                }}
+              >
+                {attendance}%
+              </div>
+
+            </div>
+
+
+            <div className="mt-2">
+
+              <span
+                className={`badge ${attendanceStatus.className}`}
+              >
+                {attendanceStatus.text}
+              </span>
+
+            </div>
+
+
+            <small className="text-muted d-block mt-2">
+
+              {attendance >= 75
+                ? "Attendance requirement satisfied."
+                : "Attendance is below the required 75%."}
+
+            </small>
+
+          </div>
 
         </div>
 
 
-        {/* Marks Overview */}
+        {/* =====================================
+            MARKS OVERVIEW
+        ====================================== */}
 
-        <h5 className="profile-section-title">
-          Marks Overview
+        <h5 className="profile-section-title mb-3">
+          📝 Marks Overview
         </h5>
-
 
         <div className="table-responsive">
 
-          <table className="table table-bordered">
+          <table className="table table-bordered table-hover">
 
             <thead className="table-light">
 
               <tr>
+
+                <th>
+                  #
+                </th>
 
                 <th>
                   Subject
@@ -512,6 +809,10 @@ function StudentProfile({ student, onBack }) {
                   Grade
                 </th>
 
+                <th>
+                  Performance
+                </th>
+
               </tr>
 
             </thead>
@@ -519,116 +820,52 @@ function StudentProfile({ student, onBack }) {
 
             <tbody>
 
-              {/* Python */}
+              {subjects.map(
+                (subject, index) => {
 
-              <tr>
+                  const subjectGrade =
+                    getGrade(subject.value);
 
-                <td>
-                  Python
-                </td>
+                  const subjectPerformance =
+                    getPerformance(subject.value);
 
-                <td>
-                  {marks.python} / 100
-                </td>
+                  return (
+                    <tr key={subject.name}>
 
-                <td>
+                      <td>
+                        {index + 1}
+                      </td>
 
-                  <span
-                    className={`badge ${getGradeClass(
-                      marks.python
-                    )}`}
-                  >
-                    {getGrade(marks.python)}
-                  </span>
+                      <td>
+                        <strong>
+                          {subject.name}
+                        </strong>
+                      </td>
 
-                </td>
+                      <td>
+                        {subject.value} / 100
+                      </td>
 
-              </tr>
+                      <td>
 
+                        <span
+                          className={`badge ${getGradeClass(
+                            subject.value
+                          )}`}
+                        >
+                          {subjectGrade}
+                        </span>
 
-              {/* Database */}
+                      </td>
 
-              <tr>
+                      <td>
+                        {subjectPerformance}
+                      </td>
 
-                <td>
-                  Database Management
-                </td>
-
-                <td>
-                  {marks.database} / 100
-                </td>
-
-                <td>
-
-                  <span
-                    className={`badge ${getGradeClass(
-                      marks.database
-                    )}`}
-                  >
-                    {getGrade(marks.database)}
-                  </span>
-
-                </td>
-
-              </tr>
-
-
-              {/* Web Development */}
-
-              <tr>
-
-                <td>
-                  Web Development
-                </td>
-
-                <td>
-                  {marks.webDevelopment} / 100
-                </td>
-
-                <td>
-
-                  <span
-                    className={`badge ${getGradeClass(
-                      marks.webDevelopment
-                    )}`}
-                  >
-                    {getGrade(
-                      marks.webDevelopment
-                    )}
-                  </span>
-
-                </td>
-
-              </tr>
-
-
-              {/* JavaScript */}
-
-              <tr>
-
-                <td>
-                  JavaScript
-                </td>
-
-                <td>
-                  {marks.javascript} / 100
-                </td>
-
-                <td>
-
-                  <span
-                    className={`badge ${getGradeClass(
-                      marks.javascript
-                    )}`}
-                  >
-                    {getGrade(
-                      marks.javascript
-                    )}
-                  </span>
-
-                </td>
-
-              </tr>
+                    </tr>
+                  );
+                }
+              )}
 
             </tbody>
 
@@ -637,15 +874,88 @@ function StudentProfile({ student, onBack }) {
         </div>
 
 
-        {/* Performance Summary */}
+        {/* =====================================
+            MARKS SUMMARY
+        ====================================== */}
+
+        <div className="row mt-3 mb-4">
+
+          <div className="col-md-4 mb-3">
+
+            <div className="card border-info text-center">
+
+              <div className="card-body">
+
+                <small className="text-muted">
+                  Total Marks
+                </small>
+
+                <h3 className="text-info">
+                  {totalMarks} / 400
+                </h3>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div className="col-md-4 mb-3">
+
+            <div className="card border-success text-center">
+
+              <div className="card-body">
+
+                <small className="text-muted">
+                  Average
+                </small>
+
+                <h3 className="text-success">
+                  {averageMarks}%
+                </h3>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div className="col-md-4 mb-3">
+
+            <div className="card border-warning text-center">
+
+              <div className="card-body">
+
+                <small className="text-muted">
+                  Overall Grade
+                </small>
+
+                <h3 className="text-warning">
+                  {grade}
+                </h3>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        {/* =====================================
+            PERFORMANCE SUMMARY
+        ====================================== */}
 
         <div
           className={`alert ${performanceClass} mt-4`}
         >
 
-          <h6 className="mb-2">
-            Performance Summary
-          </h6>
+          <h5 className="mb-3">
+            📊 Performance Summary
+          </h5>
 
 
           <p className="mb-2">
@@ -670,6 +980,17 @@ function StudentProfile({ student, onBack }) {
           </p>
 
 
+          <p className="mb-2">
+
+            Grade:{" "}
+
+            <strong>
+              {grade}
+            </strong>
+
+          </p>
+
+
           <p className="mb-0">
 
             Status:{" "}
@@ -683,9 +1004,11 @@ function StudentProfile({ student, onBack }) {
         </div>
 
 
-        {/* Action Buttons */}
+        {/* =====================================
+            ACTION BUTTONS
+        ====================================== */}
 
-        <div className="d-flex gap-2 mt-4">
+        <div className="d-flex gap-2 mt-4 flex-wrap">
 
           <button
             className="btn btn-primary"
