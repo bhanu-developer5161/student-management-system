@@ -1,166 +1,127 @@
-function Sidebar({
-  activePage,
-  setActivePage,
-}) {
+import React from "react";
+
+function Sidebar({ activePage, setActivePage }) {
+
+  const menuItems = [
+    {
+      id: "dashboard",
+      icon: "📊",
+      label: "Dashboard",
+    },
+    {
+      id: "students",
+      icon: "👨‍🎓",
+      label: "Students",
+    },
+    {
+      id: "attendance",
+      icon: "📋",
+      label: "Attendance",
+    },
+    {
+      id: "marks",
+      icon: "📝",
+      label: "Marks",
+    },
+    {
+      id: "courses",
+      icon: "📚",
+      label: "Courses",
+    },
+    {
+      id: "departments",
+      icon: "🏢",
+      label: "Departments",
+    },
+    {
+      id: "reports",
+      icon: "📈",
+      label: "Reports",
+    },
+  ];
+
+
   return (
     <aside className="sidebar">
 
-      {/* Header */}
+      {/* =========================
+          LOGO
+      ========================== */}
 
       <div className="sidebar-header">
 
-        <h4>
-          Student Management
-        </h4>
+        <h3>
+          🎓 SMS
+        </h3>
 
         <p>
-          Admin Panel
+          Student Management
         </p>
 
       </div>
 
 
-      {/* Navigation */}
+      {/* =========================
+          NAVIGATION
+      ========================== */}
 
-      <div className="sidebar-menu">
+      <nav className="sidebar-menu">
 
-        {/* Dashboard */}
+        {menuItems.map((item) => (
 
-        <button
-          type="button"
-          className={
-            activePage === "dashboard"
-              ? "sidebar-item active"
-              : "sidebar-item"
-          }
-          onClick={() =>
-            setActivePage("dashboard")
-          }
-        >
-          <span>📊</span>
-          <span>Dashboard</span>
-        </button>
+          <button
+            key={item.id}
+            type="button"
+            className={`sidebar-item ${
+              activePage === item.id
+                ? "active"
+                : ""
+            }`}
+            onClick={() =>
+              setActivePage(item.id)
+            }
+          >
 
+            <span className="sidebar-icon">
+              {item.icon}
+            </span>
 
-        {/* Students */}
+            <span>
+              {item.label}
+            </span>
 
-        <button
-          type="button"
-          className={
-            activePage === "students"
-              ? "sidebar-item active"
-              : "sidebar-item"
-          }
-          onClick={() =>
-            setActivePage("students")
-          }
-        >
-          <span>👨‍🎓</span>
-          <span>Students</span>
-        </button>
+          </button>
+
+        ))}
+
+      </nav>
 
 
-        {/* Attendance */}
-
-        <button
-          type="button"
-          className={
-            activePage === "attendance"
-              ? "sidebar-item active"
-              : "sidebar-item"
-          }
-          onClick={() =>
-            setActivePage("attendance")
-          }
-        >
-          <span>📋</span>
-          <span>Attendance</span>
-        </button>
-
-
-        {/* Marks */}
-
-        <button
-          type="button"
-          className={
-            activePage === "marks"
-              ? "sidebar-item active"
-              : "sidebar-item"
-          }
-          onClick={() =>
-            setActivePage("marks")
-          }
-        >
-          <span>📝</span>
-          <span>Marks</span>
-        </button>
-
-
-        {/* Courses */}
-
-        <button
-          type="button"
-          className={
-            activePage === "courses"
-              ? "sidebar-item active"
-              : "sidebar-item"
-          }
-          onClick={() =>
-            setActivePage("courses")
-          }
-        >
-          <span>📚</span>
-          <span>Courses</span>
-        </button>
-
-
-        {/* Departments */}
-
-        <button
-          type="button"
-          className={
-            activePage === "departments"
-              ? "sidebar-item active"
-              : "sidebar-item"
-          }
-          onClick={() =>
-            setActivePage("departments")
-          }
-        >
-          <span>🏢</span>
-          <span>Departments</span>
-        </button>
-
-
-        {/* Reports */}
-
-        <button
-          type="button"
-          className="sidebar-item"
-          onClick={() =>
-            alert(
-              "Reports module coming soon!"
-            )
-          }
-        >
-          <span>📈</span>
-          <span>Reports</span>
-        </button>
-
-      </div>
-
-
-      {/* Footer */}
+      {/* =========================
+          ADMIN
+      ========================== */}
 
       <div className="sidebar-footer">
 
-        <small>
-          Student Management System
-        </small>
+        <div className="admin-info">
 
-        <small>
-          React.js Project
-        </small>
+          <div className="admin-avatar">
+            👤
+          </div>
+
+          <div>
+
+            <strong>
+              Admin
+            </strong>
+
+            <small>
+              Administrator
+            </small>
+
+          </div>
+
+        </div>
 
       </div>
 

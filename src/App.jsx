@@ -7,12 +7,17 @@ import Attendance from "./components/Attendance";
 import Marks from "./components/Marks";
 import Courses from "./components/Courses";
 import Departments from "./components/Departments";
+import Reports from "./components/Reports";
+
 
 function App() {
+
   const [activePage, setActivePage] =
     useState("dashboard");
 
+
   const [stats, setStats] = useState({
+
     students: 0,
     courses: 0,
     departments: 0,
@@ -26,6 +31,7 @@ function App() {
     marksStudents: 0,
     passedStudents: 0,
     failedStudents: 0,
+
   });
 
 
@@ -34,7 +40,9 @@ function App() {
   ========================================== */
 
   const loadDashboardStats = () => {
+
     try {
+
       /* =========================
          STUDENTS
       ========================== */
@@ -79,6 +87,7 @@ function App() {
 
 
       students.forEach((student) => {
+
         const attendance =
           Number(student.attendance || 0);
 
@@ -89,31 +98,40 @@ function App() {
         /* 75% or above */
 
         if (attendance >= 75) {
+
           goodAttendance++;
+
         }
 
 
         /* 60% - 74% */
 
         else if (attendance >= 60) {
+
           improvementAttendance++;
+
         }
 
 
         /* Below 60% */
 
         else {
+
           lowAttendance++;
+
         }
+
       });
 
 
       const averageAttendance =
         students.length > 0
+
           ? Math.round(
               totalAttendance /
                 students.length
             )
+
           : 0;
 
 
@@ -175,19 +193,28 @@ function App() {
         /* Passing mark = 50% */
 
         if (average >= 50) {
+
           passedStudents++;
-        } else {
-          failedStudents++;
+
         }
+
+        else {
+
+          failedStudents++;
+
+        }
+
       });
 
 
       const averageMarks =
         students.length > 0
+
           ? Math.round(
               totalMarks /
                 students.length
             )
+
           : 0;
 
 
@@ -196,6 +223,7 @@ function App() {
       ================================= */
 
       setStats({
+
         students:
           students.length,
 
@@ -221,14 +249,21 @@ function App() {
         passedStudents,
 
         failedStudents,
+
       });
 
-    } catch (error) {
+
+    }
+
+    catch (error) {
+
       console.error(
         "Dashboard data error:",
         error
       );
+
     }
+
   };
 
 
@@ -237,7 +272,9 @@ function App() {
   ========================================== */
 
   useEffect(() => {
+
     loadDashboardStats();
+
   }, []);
 
 
@@ -246,7 +283,9 @@ function App() {
   ========================================== */
 
   useEffect(() => {
+
     loadDashboardStats();
+
   }, [activePage]);
 
 
@@ -255,7 +294,9 @@ function App() {
   ========================================== */
 
   const renderDashboard = () => {
+
     return (
+
       <>
 
         {/* =================================
@@ -798,6 +839,40 @@ function App() {
 
           </div>
 
+
+          {/* REPORTS */}
+
+          <div className="col-md-6 col-lg-3 mb-4">
+
+            <div className="card shadow-sm h-100">
+
+              <div className="card-body">
+
+                <h5>
+                  📊 Reports
+                </h5>
+
+                <p className="text-muted">
+                  View student performance
+                  and analytics.
+                </p>
+
+                <button
+                  className="btn btn-dark"
+                  onClick={() =>
+                    setActivePage("reports")
+                  }
+                >
+                  View Reports
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
         </div>
 
 
@@ -825,7 +900,9 @@ function App() {
         </div>
 
       </>
+
     );
+
   };
 
 
@@ -838,23 +915,41 @@ function App() {
     switch (activePage) {
 
       case "students":
+
         return <Students />;
 
+
       case "attendance":
+
         return <Attendance />;
 
+
       case "marks":
+
         return <Marks />;
 
+
       case "courses":
+
         return <Courses />;
 
+
       case "departments":
+
         return <Departments />;
 
+
+      case "reports":
+
+        return <Reports />;
+
+
       default:
+
         return renderDashboard();
+
     }
+
   };
 
 
@@ -863,7 +958,9 @@ function App() {
   ========================================== */
 
   return (
+
     <div className="app">
+
 
       <Sidebar
         activePage={activePage}
@@ -872,6 +969,7 @@ function App() {
 
 
       <div className="main-content">
+
 
         {/* TOP NAVBAR */}
 
@@ -897,11 +995,16 @@ function App() {
             {activePage === "departments" &&
               "Department Management"}
 
+            {activePage === "reports" &&
+              "Reports & Analytics"}
+
           </h4>
 
 
           <div className="admin-profile">
+
             👤 Admin
+
           </div>
 
         </nav>
@@ -915,10 +1018,13 @@ function App() {
 
         </div>
 
+
       </div>
 
     </div>
+
   );
+
 }
 
 
